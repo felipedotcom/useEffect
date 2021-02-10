@@ -7,8 +7,8 @@ function App() {
   const [checked, setChecked] = useState(false);
 
   useEffect(() => {
-    alert(`checked: ${checked.toString()}`);
-  });
+    console.log(checked ? "Estou marcado" : "Me desmarcaram");
+  }, [checked]);
 
   return (
     <>
@@ -24,7 +24,7 @@ function App() {
           onChange={() => setChecked(checked => !checked)}
           inputProps={{ 'aria-label': 'primary checkbox' }}
         />
-        {checked ? "checked" : "not checked"}
+        {checked ? "marcado" : "desmarcado"}
       </Grid>
     </>
   );
