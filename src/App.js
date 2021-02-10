@@ -1,33 +1,37 @@
-import React, { useState, useEffect } from "react";
-import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function App() {
+  const [data, setData] = useState([]);
 
-  const [checked, setChecked] = useState(false);
-
-  useEffect(() => {
-    console.log(checked ? "Estou marcado" : "Me desmarcaram");
-  }, [checked]);
+  useEffect(async () => {
+    const result = await axios(
+      'https://api.github.com/users/felipedotcom/repos',
+    );
+    console.log(result)
+    setData(result.data);
+  }, []);
 
   return (
-    <>
-      <Grid
-        container
-        spacing={0}
-        alignItems="center"
-        justify="center"
-        style={{ transform: "scale(4)", minHeight: '100vh' }}
-      >
-        <Checkbox
-          checked={checked}
-          onChange={() => setChecked(checked => !checked)}
-          inputProps={{ 'aria-label': 'primary checkbox' }}
-        />
-        {checked ? "marcado" : "desmarcado"}
-      </Grid>
-    </>
-  );
-  
+    <ul>
+
+      {
+
+        data.map((repo) => (
+          <div>
+            <a
+              href={repo.html_url}
+              key={repo.id}
+            >
+              <span>{repo.name}</span>
+              <span>Stars: {repo.stargazers_count}</span>
+              <span>Forks: {repo.forks}</span>
+              <span>Issues: {repo.open_issues}</span>
+            </a>
+          </div>
+        ))
+      }
+    </ul>
+  )
 }
 export default App;
