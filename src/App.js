@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Grid from '@material-ui/core/Grid';
 
 function App() {
   const [data, setData] = useState([]);
@@ -13,25 +14,35 @@ function App() {
   }, []);
 
   return (
-    <ul>
 
-      {
+    <Grid
+      container
+      spacing={0}
+      display="flex"
+      direction="column"
+      alignItems="flex-start"
+      justify="center"
+    >
 
-        data.map((repo) => (
-          <div>
-            <a
-              href={repo.html_url}
-              key={repo.id}
-            >
-              <span>{repo.name}</span>
-              <span>Stars: {repo.stargazers_count}</span>
-              <span>Forks: {repo.forks}</span>
-              <span>Issues: {repo.open_issues}</span>
-            </a>
-          </div>
-        ))
-      }
-    </ul>
-  )
+      <Grid item xs={6}>
+          {
+            data.map((repo) => (
+              <div>
+                <a
+                  href={repo.html_url}
+                  key={repo.id}
+                >
+                  <span>{repo.name}</span>
+                  <br/>
+                  <span>Stars: {repo.stargazers_count}</span>
+                  <span>Forks: {repo.forks}</span>
+                  <span>Issues: {repo.open_issues}</span>
+                </a>
+              </div>
+            ))
+          }
+      </Grid>
+    </Grid>
+    )
 }
 export default App;
