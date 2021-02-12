@@ -1,10 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(3),
+    },
+  },
+}));
 
 function App() {
-  const [resource, setData] = useState('posts');
+  const classes = useStyles();
+  const [route, setData] = useState('posts');
   const [items, setItems] = useState([]) 
 
-  fetch(`https://jsonplaceholder.typicode.com/${resource}`)
+  fetch(`https://jsonplaceholder.typicode.com/${route}`)
     .then(response => response.json())
     .then(json => setItems(json))
 
@@ -12,18 +23,17 @@ function App() {
     //temos que impedir esse comportamento
 
    /* useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/${resource}`)
+    fetch(`https://jsonplaceholder.typicode.com/${route}`)
     .then(response => response.json())
     .then(json => setItems(json))
-  }, [resource]); 
+  }, [route]); 
  */
   return (
 
-    <div>
-       <button onClick={() => setData('posts')}>Posts</button>
-      <button onClick={() => setData('users')}>Users</button>
-      <button onClick={() => setData('comments')}>Comments</button>
-      <h1>{resource}</h1>
+    <div className={classes.root}>
+       <Button variant="contained" color="primary" onClick={() => setData('posts')}>Posts</Button>
+      <Button variant="contained" color="primary" onClick={() => setData('users')}>Usuários</Button>
+      <Button variant="contained" color="primary" onClick={() => setData('comments')}>Comentários</Button>
       {
         items.map(item => {
           return <pre>{JSON.stringify(item)}</pre>
