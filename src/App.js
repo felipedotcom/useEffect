@@ -14,20 +14,21 @@ function App() {
   const classes = useStyles();
   const [route, setData] = useState('posts');
   const [items, setItems] = useState([]) 
-
+/* 
   fetch(`https://jsonplaceholder.typicode.com/${route}`)
     .then(response => response.json())
     .then(json => setItems(json))
-
+ */
     //fetch faz o loop pq altera o estado gera um efeito colateral executando o componentes vezes e vezes
     //temos que impedir esse comportamento
 
-   /* useEffect(() => {
+   useEffect(() => {
+
     fetch(`https://jsonplaceholder.typicode.com/${route}`)
     .then(response => response.json())
     .then(json => setItems(json))
   }, [route]); 
- */
+
   return (
 
     <div className={classes.root}>
